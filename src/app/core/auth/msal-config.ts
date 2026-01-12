@@ -1,10 +1,11 @@
 import { Configuration } from '@azure/msal-browser';
+import { environment } from '../../../environments/environment';
 
 export const msalConfig: Configuration = {
   auth: {
-    clientId: '64f97808-3331-4ed8-9f60-980ac0d545d5',
-    authority: 'https://login.microsoftonline.com/c3506676-4145-4ee8-8fa0-b6c0954ee57e',
-    redirectUri: 'http://localhost:4200'
+    clientId: environment.azure.clientId,
+    authority: `https://login.microsoftonline.com/${environment.azure.tenantId}`,
+    redirectUri: environment.azure.redirectUri
   },
   cache: {
     cacheLocation: 'localStorage',
@@ -12,6 +13,5 @@ export const msalConfig: Configuration = {
   }
 };
 
-//  API scope (the one I created in "Expose an API")
-export const API_SCOPE =
-  'api://8a7f203e-58b4-438c-b266-e22882742480/access_as_user';
+// API scope used by the UI to call the secured API
+export const API_SCOPE = `api://${environment.azure.apiClientId}/access_as_user`;
